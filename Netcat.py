@@ -30,6 +30,7 @@ class NetCat:
     def listen(self):
         self.socket.bind((self.args.target, self.args.port))
         self.socket.listen(5)
+        print(f"[*] Listening on {self.args.target}:{self.args.port}")
         while True:
             client_socket, _ = self.socket.accept()
             client_thread = threading.Thread(
@@ -53,7 +54,7 @@ class NetCat:
                     if recv_len < 4096:
                         break
                 if response:
-                    print(response)
+                    print(f"[*] Received a message: {response}")
                     buffer = input('> ')
                     buffer += '\n'
                     self.socket.send(buffer.encode())
